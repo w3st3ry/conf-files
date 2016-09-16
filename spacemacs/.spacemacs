@@ -53,6 +53,7 @@ values."
      vim-empty-lines
      javascript-mode
      javascript
+     react
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -269,7 +270,21 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (global-hl-line-mode -1) ; Disable current line highlight
   (global-linum-mode) ; Show line numbers by default
+  (setq flycheck-checkers '(javascript-eslint))
 
+  (require 'flycheck)
+  ;; turn on flychecking globally
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; disable jshint since we prefer eslint checking
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
+  ;; use eslint with web-mode for jsx files
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; disable json-jsonlist checking for json files
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                                                '(json-jsonlist)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
