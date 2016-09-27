@@ -40,7 +40,7 @@ values."
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
-                      auto-completion-complete-with-key-sequence nil
+                      ;; auto-completion-complete-with-key-sequence nil
                       auto-completion-complete-with-key-sequence-delay 0.1
                       auto-completion-private-snippets-directory nil)
      osx
@@ -259,6 +259,26 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  ;; =My defaults
+  (setq-default
+
+   ;; js2-mode
+   js2-include-node-externs t ; Node.js syntax
+   js2-skip-preprocessor-directives t ; Treat lines beginning with # as comments
+   js2-strict-trailing-comma-warning nil ; Don't warn about trailing commas (bugs in old IE versions)
+
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2
+
+   python-indent-offset 2
+
+   ;; Requires 'eslint' to be installed ($> npm i -g eslint)
+   flycheck-eslintrc ".eslintrc"
+   )
   )
 
 (defun dotspacemacs/user-config ()
@@ -286,6 +306,7 @@ you should place your code here."
                 (append flycheck-disabled-checkers
                                                 '(json-jsonlist)))
   )
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
